@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Hello World</title>
+  </head>
+  <body onload = "main()">
+    <h1>Hello World in OpenGL</h1>
+    <canvas id = "helloWorld" width= "400" height="600">
+
+    </canvas>
+    <script>
+      //Vertex Shader Language
+     var VSHADER_SCOURCE =
+      'void main() {\n' +
+      ' gl_Position = vec4(0.0, 0.0, 0.0, 1.0); \n' +
+      ' gl_PointSize = 10.0; \n' +
+      '}\n';
+      //Fragement Shader Program
+      var FSHADER_SCOURCE =
+      'void main() {\n' +
+      ' gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0); \n' +
+      '}\n';
+
+     function main() {
+       var canvas = document.getElementById("helloWorld");
+       if (!canvas) {
+         console.log("Fail to retreieve the <canvas> element");
+           return;
+       }
+
+      var gl = getWebGLContext(canvas);
+      if (!gl) {
+        console.log('Fail to get rendering context from WebGL');
+        return;
+      }
+
+      //Initialize the shaders
+      //Shaders are the drawing mechanism for openGL
+      if (!initShaders(gl, VSHADER_SCOURCE, FSHADER_SCOURCE)) {
+        console.log("shader initalize failed");
+        return;
+      }
+      gl.clearColor(0, 255,0,1.0);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+
+      gl.drawArrays(gl.POINTS, 0, 1);
+     }
+    </script>
+    <script src = "webgl-utils.js">
+    </script>
+    <script src = "webgl-debug.js">
+      </script>
+    <script src = "cuon-utils.js">
+      </script>
+  </body>
+</html>
