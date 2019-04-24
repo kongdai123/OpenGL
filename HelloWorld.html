@@ -12,8 +12,9 @@
     <script>
       //Vertex Shader Language
      var VSHADER_SCOURCE =
+      'attribute vec4 position; \n' +
       'void main() {\n' +
-      ' gl_Position = vec4(0.0, 0.0, 0.0, 1.0); \n' +
+      ' gl_Position = position; \n' +
       ' gl_PointSize = 10.0; \n' +
       '}\n';
       //Fragement Shader Program
@@ -41,6 +42,16 @@
         console.log("shader initalize failed");
         return;
       }
+
+      //retrieve variable location from
+      var position = gl.getAttribLocation(gl.program, 'position');
+      if (position < 0) {
+        console.log('FAIL to retrieve position');
+        return;
+      }
+      //Pass in the value to the variable
+      gl.vertexAttrib3f(position, 0.0, 0.0, 0.0);
+
       gl.clearColor(0, 255,0,1.0);
       gl.clear(gl.COLOR_BUFFER_BIT);
 
