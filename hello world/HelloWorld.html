@@ -5,8 +5,11 @@
     <title>Hello World</title>
   </head>
   <body onload = "main()">
-    <h1>Hello World in OpenGL</h1>
-    <canvas id = "helloWorld" width= "1000" height="1000">
+    <h1>([ Math.sqrt(tan(x))*( 0.95 + circle(x,y))/2, 
+      Math.sqrt(tan(y))*( 0.95 + circle(x,y))/2, 
+      Math.sqrt(tan(x*y))*(1 + circle(x,y))/2 , 
+      1.0])</h1>
+    <canvas id = "helloWorld" width= "2000" height="1280">
 
     </canvas>
     <script>
@@ -35,12 +38,15 @@
         var rect = ev.target.getBoundingClientRect();
         x = ((x - rect.left) - (canvas.width/2))/(canvas.width/2);
         y = ((canvas.height/2) - (y - rect.top))/(canvas.height/2);
-        for (var b = 0; b < canvas.width + 1; b += 10) {
+        for (var b = 0; b < canvas.width + 1; b += 2) {
           x = 2* b/canvas.width - 1;
-          for (var a = 0; a < canvas.height + 1; a += 10) {
+          for (var a = 0; a < canvas.height + 1; a += 2) {
           y = 2* a/canvas.height - 1;
           g_points.push([x, y]);
-          g_colors.push([ sin(x)*(1 + circle(x,y))/2, sin(y)*(1 + circle(x,y))/2, cos(x*y)*(1 + circle(x,y))/2 , 1.0]);
+          g_colors.push([ Math.sqrt(tan(x))*( 0.95 + circle(x,y))/2, 
+                          Math.sqrt(tan(y))*( 0.95 + circle(x,y))/2, 
+                          Math.sqrt(tan(x*y))*(1 + circle(x,y))/2 , 
+                          1.0]);
           }
         }
 
@@ -57,18 +63,27 @@
         }
       }
 
+      function tan(x) {
+        if (Math.cos(x * 12.56) == 0) {
+          return  0.5;
+        }
+        var a = Math.sin(x * 12.56)/ Math.cos(x * 12.56);
+        if (a < -1) {
+          return -0.25 / a;
+          
+        }
+        if (a > 1) {
+          return -0.25 / a + 1;
+        }
+        else return 0.25 * a + 0.5;
+      }
+
       function cos(x) {
-        return (Math.cos(x * 3.14) + 1)/2;
+        return (Math.cos(x * 12.56) + 1)/2;
 
       }
-
       function sin(x) {
-        return (Math.sin(x * 3.14 /2) + 1)/2;
-
-      }
-
-      function sin(x) {
-        return (Math.sin(x * 3.14) + 1)/2;
+        return (Math.sin(x * 12.56) + 1)/2;
 
       }
 
@@ -116,7 +131,7 @@
       //the number 3 specificies the number of parameters to put in
       //alternatively you can pass in a float array
       //like gl.vertexAttrib3f(position, Float[])
-      gl.vertexAttrib1f(size, 10.0);
+      gl.vertexAttrib1f(size, 2.0);
       gl.clearColor(0, 0 ,0,1.0);
       //this trigger an event called on mouse press
       canvas.onmousedown = function (ev) {
@@ -126,11 +141,11 @@
       gl.clear(gl.COLOR_BUFFER_BIT);
      }
     </script>
-    <script src = "webgl-utils.js">
+    <script src = "../webgl-utils.js">
     </script>
-    <script src = "webgl-debug.js">
+    <script src = "../webgl-debug.js">
       </script>
-    <script src = "cuon-utils.js">
+    <script src = "../cuon-utils.js">
       </script>
   </body>
 </html>
