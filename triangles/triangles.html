@@ -11,10 +11,32 @@
         </script>
         <script src = "multipoint.js">
         </script>
+        <script src = "helloTriangle.js">
+        </script>
+        <script src = "translatedTriangle.js"> 
+        </script>
+        <script src = "rotatingTriangle.js"> 
+        </script>
     </head>
-    <body onload = "main()">
-        <h1>Triangles</h1>
+    <body>
+        <h1>Triangles
+        </h1>
+        <button onclick = "multipoint()">Multipoint
+        </button>
         <canvas id = "multipoint" width= "500" height="500">
         </canvas>
+        <button onclick = "helloTriangle()">helloTriangle
+        </button>
+        <canvas id = "helloTriangle" width = '500' height = '500'>
+        </canvas>
+        <button onclick = "translatedTriangle()">Translated Triangle
+        </button>
+        <canvas id = "translatedTriangle" width = "500" height = '500'>
+        </canvas>
+        <button onclick = "rotatingTriangle()">Rotating Triangle
+        </button>
+        <canvas id = "rotatingTriangle" width = "500" height = '500'>
+        </canvas>
     </body>
+
 </html>
